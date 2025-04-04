@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+    Calculate
+{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Calculate</button>
+</form>
+
+{% endblock %}

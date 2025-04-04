@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+    Energy usage calculator
+{% endblock %}
+
+{% block content %}
+
+{% for usage in usages %}
+    <p>{{ usage.date }}: {{ usage.electricity }} kWh, {{ usage.gas }} m3, {{ usage.water }} m3</p>
+{% empty %}
+    <p>No usages yet</p>
+{% endfor %}
+
+{% endblock %}

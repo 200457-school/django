@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+    Calculate Footprint
+{% endblock %}  
+
+{% block content %}
+<h1>Your Carbon Footprint</h1>
+<p>Total CO₂ emissions: {{ co2_emissions }} grams</p>
+<a href="{% url 'calculator:calculate_footprint' %}">Go back</a>
+{% endblock %}

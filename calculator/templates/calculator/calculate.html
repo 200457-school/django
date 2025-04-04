@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+    Calculate Footprint
+{% endblock %}  
+
+{% block content %}
+<h1>Carbon Footprint Calculator</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Calculate</button>
+</form>
+{% endblock %}

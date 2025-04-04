@@ -1,0 +1,70 @@
+{% with app_name=request.resolver_match.app_name view_name=request.resolver_match.url_name %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'core:home' %}">Rolsa Technologies</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if app_name == 'core' and view_name == 'home' %}active{% endif %}"
+                            {% if app_name == 'core' and view_name == 'home' %} aria-current="page" {% endif %}
+                            href="{% url 'core:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if app_name == 'core' and view_name == 'about' %}active{% endif %}"
+                            {% if app_name == 'core' and view_name == 'about' %} aria-current="page" {% endif %}
+                            href="{% url 'core:about' %}">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link {% if app_name == 'reservations' or app_name == 'lessons' or app_name == 'orders' %}active{% endif %}
+                            dropdown-toggle" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            {% if app_name == 'reservations' or app_name == 'lessons' or app_name == 'orders' %} aria-current="page" {% endif %}>
+                            Articles
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-id" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'core:footprint-info' %}">Ways to Reduce Carbon Footprint</a></li>
+                            <li><a class="dropdown-item" href="{% url 'core:green-info' %}">Green Energy Products on the Market</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link {% if app_name == 'reservations' or app_name == 'lessons' or app_name == 'orders' %}active{% endif %}
+                            dropdown-toggle" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            {% if app_name == 'reservations' or app_name == 'lessons' or app_name == 'orders' %} aria-current="page" {% endif %}>
+                            Services
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end menu-id" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'energy_usage:calculate' %}">Energy usage calculator</a></li>
+                            <li><a class="dropdown-item" href="{% url 'calculator:calculate_footprint' %}">Carbon Footprint Calculator</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link {% if app_name == 'accounts' %}active{% endif %} dropdown-toggle"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false" id="accountDropdown">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                                <li><a href="{% url 'energy_usage:dashboard' %}" class="dropdown-item">Dashboard</a></li>
+                                <li><a href="{% url 'accounts:update' %}" class="dropdown-item">Manage Account</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="d-flex justify-content-center">
+                                    <form action="{% url 'accounts:logout' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-dark">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <form action="{% url 'accounts:login' %}" method="get" class="d-inline">
+                            <button type="submit" class="btn btn-dark">Login</button>
+                        </form>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endwith %}
