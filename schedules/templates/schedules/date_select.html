@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block content %}
-
-
-
+    <form method="POST" action="{% url 'schedules:date_select' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-dark" type="submit">Select</button>
+    </form>
 {% endblock %}

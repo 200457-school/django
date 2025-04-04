@@ -32,11 +32,21 @@ class Schedule(models.Model):
 
     class Meta:
         ordering = ["-date"]
-        models.UniqueConstraint(fields=["schedule_type", "action", "date", "time_slot"], name="unique_schedule")
+        constraints = [
+            models.UniqueConstraint(fields=["schedule_type", "action", "date", "time_slot"], name="unique_schedule")
+        ]
 
     @property
     def time(self):
         return self.TIME_SLOT[self.time_slot][1]
 
+    @property
+    def action_name(self):
+        return dict(self.ACTION).get(self.action, "Unknown")
+
+    @property
+    def schedule_type_name(self):
+        return dict(self.SCHEDULE_TYPE).get(self.schedule_type, "Unknown")
+
     def __str__(self):
-        return f"{self.schedule_type} - {self.action} - {self.date} - {self.time}"
+        return f"{self.schedule_type_name} - {self.action_name} - {self.date} - {self.time}"
