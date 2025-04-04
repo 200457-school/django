@@ -52,13 +52,3 @@ def book(request, date, schedule_type, action, time_slot):
             date=date,
         )
         return redirect("schedules:dashboard")
-
-
-@login_required
-def dashboard(request):
-    installations = Schedule.objects.filter(user=request.user, action="I")
-    consultations = Schedule.objects.filter(user=request.user, action="C")
-    return render(request, "schedules/dashboard.html", {
-        "installations": installations,
-        "consultations": consultations
-    })

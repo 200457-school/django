@@ -28,10 +28,3 @@ def calculate(request):
 
     return render(request, "energy_usage/calculate.html", {"form": form})
 
-
-@login_required
-def dashboard(request):
-    user = request.user
-    usages = Usage.objects.filter(user=user).order_by("-date")
-
-    return render(request, "energy_usage/dashboard.html", {"usages": usages})

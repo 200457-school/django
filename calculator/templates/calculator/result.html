@@ -8,4 +8,7 @@
 <h1>Your Carbon Footprint</h1>
 <p>Total CO₂ emissions: {{ co2_emissions }} grams</p>
 <a href="{% url 'calculator:calculate_footprint' %}">Go back</a>
+{% if co2_emissions > 10000 %}
+<p class="text-danger">You carbon footprint is high, please read our article on <a href="{% url 'core:footprint-info' %}">ways to reduce your carbon footprint</a></p>
+{% endif %}
 {% endblock %}

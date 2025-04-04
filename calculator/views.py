@@ -7,8 +7,8 @@ def calulate_footprint(request):
         form = CarbonFootprintForm(request.POST)
         if form.is_valid():
             transportation_km = form.cleaned_data['transportation_km']
-            energy_consumption_kWh = form.cleaned_data['energy_consumption_kWh']
-            waste_generation_kg = form.cleaned_data['waste_generation_kg']
+            energy_consumption_kWh = form.cleaned_data['energy_kWh']
+            waste_generation_kg = form.cleaned_data['waste_kg']
             
             co2_emissions = calculate_co2_emissions(
                 transportation_km, energy_consumption_kWh, waste_generation_kg
